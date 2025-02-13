@@ -22,4 +22,5 @@ jobs:
           libncurses5-dev libssl-dev dwarves fakeroot tree debhelper-compat
 
       - name: Display File Tree
+        working-directory: ~/
         run: tree -L 3
