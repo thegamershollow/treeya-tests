@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+        submodules: 'true'
 
       - name: Get Disk Space
         run: df -h
@@ -24,13 +26,13 @@ jobs:
         working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
         run: make crossgcc-i386 CPUS=$(nproc)
 
-      - name: Copy Config into Coreboot Dir
+      - name: Copy Config into coreboot Dir
         working-directory: /home/runner/work/treeya-tests/treeya-tests
         run: |
             cp treeya.conf coreboot/.config
             make olddefconfig
 
-      - name: Make corerboot Rom Image
+      - name: Make coreboot Rom Image
         working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
         run: |
             make
