@@ -1,0 +1,26 @@
+name: Build Treeya Coreboot Rom
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Get Disk Space
+        run: df -h
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git linux-firmware curl wget gcc bison make cmake \
+          build-essential libncurses-dev flex libelf-dev bc kmod cpio \
+          libncurses5-dev libssl-dev dwarves fakeroot tree debhelper-compat
+
+      - name: Display File Tree
+        working-directory: /mnt/kernel/stoney-kernel
+        run: tree -L 3
