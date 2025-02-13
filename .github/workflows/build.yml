@@ -14,10 +14,10 @@ jobs:
         with:
             submodules: 'true'
 
-      - name: Get Disk Space
+      - name: Get disk space
         run: df -h
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y bison build-essential curl flex git gnat libncurses-dev libssl-dev zlib1g-dev pkgconf
@@ -26,17 +26,23 @@ jobs:
         working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
         run: make crossgcc-i386 CPUS=$(nproc)
 
-      - name: Copy Config into coreboot Dir
+      - name: Copy config into coreboot dir
         working-directory: /home/runner/work/treeya-tests/treeya-tests
         run: |
             cp treeya.conf coreboot/.config
-            make olddefconfig
+            make oldconfig
 
-      - name: Make coreboot Rom Image
+      - name: Make coreboot rom image
         working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
         run: |
             make
 
-      - name: Display File Tree
+      - name: Display file tree
         working-directory: /home/runner/work/treeya-tests/treeya-tests
         run: tree -L 5
+
+      - name: Upload coreboot rom image
+        uses: actions/upload-artifact@v4
+        with:
+          name: "coreboot rom image"
+          path: /home/runner/work/treeya-tests/treeya-tests/coreboot/build/coreboot.rom
