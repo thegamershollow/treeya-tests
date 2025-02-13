@@ -2,6 +2,7 @@ name: Build Treeya Coreboot Rom
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   compile:
