@@ -18,10 +18,23 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y git linux-firmware curl wget gcc bison make cmake \
-          build-essential libncurses-dev flex libelf-dev bc kmod cpio \
-          libncurses5-dev libssl-dev dwarves fakeroot tree debhelper-compat
+          sudo apt install -y bison build-essential curl flex git gnat libncurses-dev libssl-dev zlib1g-dev pkgconf
+
+      - name: Build crossgcc-i386
+        working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
+        run: make crossgcc-i386 CPUS=$(nproc)
+
+      - name: Copy Config into Coreboot Dir
+        working-directory: /home/runner/work/treeya-tests/treeya-tests
+        run: |
+            cp treeya.conf coreboot/.config
+            make olddefconfig
+
+      - name: Make corerboot Rom Image
+        working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
+        run: |
+            make
 
       - name: Display File Tree
         working-directory: /home/runner/work/treeya-tests/treeya-tests
-        run: tree -L 3
+        run: tree -L 5
