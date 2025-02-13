@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y bison build-essential curl flex git gnat libncurses-dev libssl-dev zlib1g-dev pkgconf uuid-dev python-is-python3 iasl nasm imagemagick
+          sudo apt install -y bison build-essential curl flex git gnat imagemagick libncurses5-dev m4 nasm python-is-python3 uuid-dev zlib1g-dev libssl-dev
 
       - name: Build crossgcc-i386
         working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
