@@ -1,4 +1,4 @@
-name: Build Treeya Coreboot Rom
+name: Build Treeya coreboot Rom
 
 on:
   workflow_dispatch:
