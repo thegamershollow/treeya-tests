@@ -30,11 +30,11 @@ jobs:
         working-directory: /home/runner/work/treeya-tests/treeya-tests
         run: |
             cp treeya.conf coreboot/.config
-            make oldconfig
 
       - name: Make coreboot rom image
         working-directory: /home/runner/work/treeya-tests/treeya-tests/coreboot
         run: |
+            make olddefconfig
             make
 
       - name: Display file tree
